@@ -1,0 +1,27 @@
+<RCC>
+  <qresource prefix="product details">
+    <file>noun-product-detail-3480441.svg</file>
+  </qresource>
+  <qresource prefix="box">
+    <file>box.svg</file>
+  </qresource>
+  <qresource prefix="minimize">
+    <file>noun-minimize-2248799.svg</file>
+  </qresource>
+  <qresource prefix="full screen">
+    <file>noun-full-screen-1222772.svg</file>
+  </qresource>
+  <qresource prefix="close">
+    <file>noun-close-1146383.svg</file>
+  </qresource>
+  <qresource prefix="product_list">
+    <file>noun-list-product-3434625.svg</file>
+  </qresource>
+  <qresource prefix="calender">
+    <file>noun-calender-3455260.svg</file>
+    <file>noun-appointment-3987013.svg</file>
+  </qresource>
+  <qresource prefix="qr code ">
+    <file>noun-qr-code-1216158.svg</file>
+  </qresource>
+</RCC>
