@@ -6,7 +6,9 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtCore import QPoint
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap, QImage, QPainter
 
+import qrcode
 
 class MyLineEdit(QLineEdit):
 
@@ -103,6 +105,51 @@ class Frame(QFrame):
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton: 
             self.clicked.emit()
+
+class Image(qrcode.image.base.BaseImage):
+ 
+    # constructor
+    def __init__(self, border, width, box_size):
+ 
+        # assigning border
+        self.border = border
+ 
+        # assigning  width
+        self.width = width
+ 
+        # assigning box size
+        self.box_size = box_size
+ 
+        # creating size
+        size = (width + border * 2) * box_size
+ 
+        # image
+        self._image = QImage(size, size, QImage.Format_RGB16)
+ 
+        # initial image as white
+        self._image.fill(Qt.white)
+ 
+ 
+    # pixmap method
+    def pixmap(self):
+ 
+        # returns image
+        return QPixmap.fromImage(self._image)
+ 
+    # drawrect method for drawing rectangle
+    def drawrect(self, row, col):
+ 
+        # creating painter object
+        painter = QPainter(self._image)
+ 
+        # drawing rectangle
+        painter.fillRect(
+            (col + self.border) * self.box_size,
+            (row + self.border) * self.box_size,
+            self.box_size, self.box_size,
+            QtCore.Qt.black)
+ 
+ 
 
 
 
