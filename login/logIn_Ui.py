@@ -3,7 +3,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 import res
 import requests
-from network import Network
+import os
+# from network import Network
+# from ..network.network import Network
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
+
+from network.network import Network
+
+
 
 class Ui_Form(object):
     def setupUi(self, Form):

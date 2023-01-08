@@ -33,6 +33,15 @@ from PyQt5.QtCore import (QCoreApplication, QObject, QRunnable, QThread,
 import threading
 import socket
 import qrcode
+
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
+
+from network.network import Network
+
+
 stop_threads =False
 dataGetFromscript =""
 
@@ -44,11 +53,11 @@ class Main(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        print("ok")
         # w = QtWidgets.QMainWindow()
         # ex.setupUi(w)
         # w.show()
         self.setupUi(self)
+        self.picDirectory =""
         # # # showing all the widgets
         self.show()
         # self.thr = threading.Thread(target=network.server)
@@ -714,7 +723,8 @@ class Main(QMainWindow):
                                   "color: black;\n"
                                   "}")
         self.addPic.setObjectName("addPic")
-        self.addPic.clicked.connect(self.browsImage)
+        self.addPic.clicked.connect(self.browsImage) 
+        # self.addPic.clicked.connect(lambda: self.browsImage())
 
         self.horizontalLayout_7.addWidget(self.addPic)
         self.send = QtWidgets.QPushButton(self.frame_12)
@@ -806,10 +816,11 @@ class Main(QMainWindow):
             # self.maximaze_btn.setProperty("img", "0")
 
     def browsImage(self):
-        # print("every tink is Ok")
+        print("every tink is Ok")
         fname = QFileDialog.getOpenFileName(
             self, 'open File', 'c\\', 'Image files (*.jpg *.gif)')
         imagePath = fname[0]
+        self.picDirectory = imagePath
         # print(fname)
         # with open(imagePath, 'rb') as f:
         #     img = f.read()
@@ -824,7 +835,27 @@ class Main(QMainWindow):
         print(self.code.text())
         print(self.place.text())
         print(self.brand.text())
-        print("sended")
+        print(self.picDirectory)
+
+        if self.title.text() == "":
+            print('wrong')
+        # print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
+        # print(self.active.isChecked())
+
+        # Network.post_product_data(
+        #                           self.title.text(),
+        #                           self.code.text(),
+        #                           self.place.text(),
+        #                           self.number.text(),
+        #                           self.brand.text(),
+        #                           self.description.text(),
+        #                           self.smallDescription.text(),
+        #                           self.price.text(),
+        #                           self.priceOff.text(),
+        #                           self.picDirectory,
+        #                           self.active.isChecked(),
+        #                           self.vige.isChecked()
+        #                           )
 
     @property
     def gripSize(self):
@@ -914,7 +945,6 @@ class Main(QMainWindow):
         self.frameRight.show()
         self.frame_8.show()
         self.frameQrcode.hide()       
-from time import sleep
 
 class NetworkServer(Main):#Main
 
