@@ -1,30 +1,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 import sys
-# from PyQt5.QtWidgets import QMainWindow  # , QDialog, QPushButton
-# from PyQt5.QtCore import QPoint
-# from PyQt5.QtWidgets import QWidget
+
 import icons
+from widgets_product import MyLineEdit, FormWidget, SideGrip, Frame, Image
+
 import os
 from PyQt5.QtGui import QPixmap, QImage, QPainter
 
-from widgets_product import MyLineEdit, FormWidget, SideGrip, Frame, Image
-# from .widgets_product import MyLineEdit, FormWidget
-# from PyQt5 im
-# port QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import (
     QLineEdit,
-    # QApplication,
     QMainWindow,
-    # QDialog,
-    # QPushButton,
-    # QLabel,
     QFileDialog,
-    # QVBoxLayout,
     QWidget,
-    # ,
-    # QPainter
-    # QWizard
 )
 
 from PyQt5.QtCore import (QCoreApplication, QObject, QRunnable, QThread,
@@ -40,13 +27,14 @@ sys.path.append(parent)
 
 
 from network.network import Network
+from extention.massegeBox import addProductSuccesMessege,notEnteredMessege,\
+                                 isEmpty,notEnterednumber
 
 
 stop_threads =False
 dataGetFromscript =""
 
 
-# Image class for QR code
 
 class Main(QMainWindow):
     _gripSize = 8
@@ -244,6 +232,7 @@ class Main(QMainWindow):
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setMinimumSize(QtCore.QSize(0, 200))
         # self.frame_2.setMaximumSize(QtCore.QSize(16777215, 200))
+        
         self.frame_2.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.frame_2.setStyleSheet("background-color: rgb(161, 164, 224);")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -321,6 +310,7 @@ class Main(QMainWindow):
         self.frame_8.setObjectName("frame_8")
 
         # self.frame_8.hide()
+        # self.frameRight.hide()
         # self.frame_8.show()
 
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_8)
@@ -649,7 +639,9 @@ class Main(QMainWindow):
 #!
         # self.frameRight.hide()
         # self.frame_8.hide()
-        # self.frameQrcode.hide()
+        # self.scrollArea.hide()
+        # self.scrollAreaWidgetContents_5.hide()
+        # self.frameQrcode.hide() self.scrollArea.setWidgetResizable(True)
 #*=========================================================================
         self.frameQrcode = QtWidgets.QFrame(self.frame)
         self.frameQrcode.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -657,14 +649,67 @@ class Main(QMainWindow):
         self.frameQrcode.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frameQrcode.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frameQrcode.setObjectName("frameQrcode")
+        
+        self.scrollArea_Qr = QtWidgets.QScrollArea(self.frameQrcode)
+        # self.scrollArea_Qr.setStyleSheet("\n"
+        #                               "/*vertical SCrollbar*/\n"
+        #                               "QScrollBar:vertical{\n"
+        #                               "border:none;\n"
+        #                               "background-color: rgb(161, 164, 224);\n"
+        #                               "width:14px;\n"
+        #                               "/*margin: 15px 0 15px 0;*/\n"
+        #                               "border-radius:0px\n"
+        #                               "}\n"
+        #                               "/* Handle Bar Vertiacal */\n"
+        #                               "\n"
+        #                               "QScrollBar::handle:vertical{\n"
+        #                               "background-color:  rgb(161, 164, 224);\n"
+        #                               "min-height: 30px;\n"
+        #                               "border-radius: 7px;\n"
+        #                               "}\n"
+        #                               "\n"
+        #                               "QScrollBar::handle:vertical:hover{\n"
+        #                               "background-color: rgb(255,0,127);\n"
+        #                               "}\n"
+        #                               "\n"
+        #                               "QScrollBar::handle:pressed{\n"
+        #                               "background-color: rgb(185,0,92);\n"
+        #                               "}")
+        self.scrollArea_Qr.setWidgetResizable(True)
+        self.scrollArea_Qr.setObjectName("scrollArea_Qr")
+
+
+        # self.frameQrcode = QtWidgets.QFrame(self.frame)
+        # self.frameQrcode.setMaximumSize(QtCore.QSize(500, 16777215))
+        # self.frameQrcode.setStyleSheet("")
+        # self.frameQrcode.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.frameQrcode.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.frameQrcode.setObjectName("frameQrcode")
+        # self.frameQrcode.setMaximumSize(QtCore.QSize(500, 100))
         # self.frameQrcode.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.frameQrcode.hide()
         # self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.frame_12)
+
+        # self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_8)
+        # self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        # self.verticalLayout_3.setSpacing(0)
+        # self.verticalLayout_3.setObjectName("verticalLayout_3")
+
 
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.frameQrcode)
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName("verticalLayout_8")
+
+        self.verticalLayout_8.addWidget(self.scrollArea_Qr)
+
+
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.scrollArea_Qr)
+        self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_9.setSpacing(0)
+        self.verticalLayout_9.setObjectName("verticalLayout_8")
+
+        # self.scrollArea_Qr.setWidget(self.verticalLayout_8)
 
         # self.frame_13 = QtWidgets.QFrame(self.frameRight)
         # self.frame_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -673,7 +718,12 @@ class Main(QMainWindow):
 
         self.qrLabel = QtWidgets.QLabel('This is qrLabel' ,self.frameQrcode)
         self.qrLabel.setAlignment(Qt.AlignCenter)
+        # self.qrLabel.setContentsMargins(0, 0, 0, 0)
 
+        # self.qrLabel.setMaximumSize(QtCore.QSize(500, 16777215))
+        
+        # self.qrLabel.setMinimumSize(QtCore.QSize(500, 5000))
+        
         self.qrTitle = QtWidgets.QLineEdit(self.frameQrcode)
         self.qrTitle.setGeometry(QtCore.QRect(40, 0, 170, 50))
         self.qrTitle.setStyleSheet("border-radius: 25px;\n"
@@ -683,9 +733,10 @@ class Main(QMainWindow):
 
         self.qrTitle.returnPressed.connect(self.handleTextEntered)
 
-        self.verticalLayout_8.addWidget(self.qrLabel)
-        self.verticalLayout_8.addWidget(self.qrTitle)
+        self.verticalLayout_9.addWidget(self.qrLabel)
+        self.verticalLayout_9.addWidget(self.qrTitle)
 
+ 
 #*=========================================================================
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.frameRight)
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
@@ -830,32 +881,82 @@ class Main(QMainWindow):
         # self.resize(pixmap.width(), pixmap.height())
         self.pic.setPixmap(QPixmap(pixmap))
 
+    def setEmptyProduct(self):
+        self.title.setText("")
+        self.code.setText(""),
+        self.place.setText(""),
+        self.number.setText(""),
+        self.brand.setText(""),
+        self.description.setText(""),
+        self.smallDescription.setText(""),
+        self.price.setText(""),
+        self.priceOff.setText(""),#
+        self.active.setChecked(False)
+        self.vige.setChecked(False)
+
     def sendProduct(self):
-        print(self.title.text())
-        print(self.code.text())
-        print(self.place.text())
-        print(self.brand.text())
-        print(self.picDirectory)
 
         if self.title.text() == "":
-            print('wrong')
-        # print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
-        # print(self.active.isChecked())
+            notEnteredMessege("عنوان")
+        elif self.code.text() == "":
+            notEnteredMessege("کد")
+        elif self.place.text() == "":
+            notEnteredMessege("مکان کالا")
+        elif self.number.text() == "":
+            notEnteredMessege("تعداد")
+        elif not self.number.text().isnumeric():
+            notEnterednumber("تعداد")
+        elif self.brand.text() == "":
+            notEnteredMessege("برند")
+        elif self.description.text() == "":
+            notEnteredMessege("توضیحات")
+        elif self.smallDescription.text() == "":
+            notEnteredMessege("توضیحات کوتاه")
+        elif self.price.text() == "":
+            notEnteredMessege("قیمت")
+        elif not self.price.text().isnumeric():
+            notEnterednumber("قیمت")
+        elif self.picDirectory == "":
+            notEnteredMessege("عکس")
+        elif not self.priceOff.text().isnumeric() and not self.priceOff.text() == "":
+            notEnterednumber("قیمت تخفیف")
+        elif self.priceOff.text() == "":
+            isEmpty("قیمت تخفیف",
+                    lambda:Network.post_product_data(
+                                    self.title.text(),
+                                    self.code.text(),
+                                    self.place.text(),
+                                    self.number.text(),
+                                    self.brand.text(),
+                                    self.description.text(),
+                                    self.smallDescription.text(),
+                                    self.price.text(),
+                                    self.priceOff.text(),
+                                    self.picDirectory,
+                                    self.active.isChecked(),
+                                    self.vige.isChecked()
+                                    )
+                    )
+            self.setEmptyProduct()
+                
 
-        # Network.post_product_data(
-        #                           self.title.text(),
-        #                           self.code.text(),
-        #                           self.place.text(),
-        #                           self.number.text(),
-        #                           self.brand.text(),
-        #                           self.description.text(),
-        #                           self.smallDescription.text(),
-        #                           self.price.text(),
-        #                           self.priceOff.text(),
-        #                           self.picDirectory,
-        #                           self.active.isChecked(),
-        #                           self.vige.isChecked()
-        #                           )
+
+        else:
+            Network.post_product_data(
+                                    self.title.text(),
+                                    self.code.text(),
+                                    self.place.text(),
+                                    self.number.text(),
+                                    self.brand.text(),
+                                    self.description.text(),
+                                    self.smallDescription.text(),
+                                    self.price.text(),
+                                    self.priceOff.text(),
+                                    self.picDirectory,
+                                    self.active.isChecked(),
+                                    self.vige.isChecked()
+                                    )
+            self.setEmptyProduct()
 
     @property
     def gripSize(self):

@@ -13,9 +13,29 @@ sys.path.append(parent)
 
 from network.network import Network
 
+import functools
+from PyQt5.QtWidgets import QMainWindow
 
+# from product import icons
 
-class Ui_Form(object):
+# from product.product import Main
+
+# statusOfPostLogin =None
+from PyQt5.QtWidgets import QWidget
+# from PyQt5.QtGui import *
+# from PyQt5.QtCore import *
+# class Ui_Form(object):
+class Ui_Form(QMainWindow):
+# class Ui_Form(QWidget):
+    def __init__(self):
+        super().__init__()
+        # w = QtWidgets.QMainWindow()
+        # ex.setupUi(w)
+        # w.show()
+        self.setupUi(self)
+        # # # showing all the widgets
+        self.show()
+
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(640, 480)
@@ -160,7 +180,9 @@ class Ui_Form(object):
                                       "")
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_3.addWidget(self.pushButton)
+
         self.pushButton.clicked.connect(self.buttonClicked_login)
+        # self.pushButton.clicked.connect(functools.partial(self.buttonClicked_login,statusOfPostLogin))
 
         self.verticalLayout.addWidget(self.frame_2)
         self.horizontalLayout.addWidget(self.frame)
@@ -176,7 +198,17 @@ class Ui_Form(object):
 
     def buttonClicked_login(self):
         #todo
-        Network.post_login(email=self.lineEdit.text(),password=self.lineEdit_2.text())
+        statusOfPostLogin=Network.post_login(email=self.lineEdit.text(),password=self.lineEdit_2.text())
+        print("statusOfLogin")
+        print(statusOfPostLogin)
+        if statusOfPostLogin == 400:
+            self.label_3.show()
+        elif statusOfPostLogin == 200:
+            self.label_3.hide()
+            self.close()
+            os.system('python product\product.py')
+            # sys.exit(app.exec_())
+            # sys.exit()
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -190,18 +222,16 @@ class Ui_Form(object):
         self.pushButton.setText(_translate("Form", "ورود"))
 
 
-if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
-
 # if __name__ == "__main__":
 #     app = QtWidgets.QApplication(sys.argv)
-#     ex = Ui_MainWindow()
-#     w = QtWidgets.QMainWindow()
-#     ex.setupUi(w)
-#     w.show()
+#     Form = QtWidgets.QWidget()
+#     ui = Ui_Form()
+#     ui.setupUi(Form)
+#     Form.show()
+#     # Form.close()
 #     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    ex = Ui_Form()
+    sys.exit(app.exec_())
