@@ -651,50 +651,9 @@ class Main(QMainWindow):
         self.frameQrcode.setObjectName("frameQrcode")
         
         self.scrollArea_Qr = QtWidgets.QScrollArea(self.frameQrcode)
-        # self.scrollArea_Qr.setStyleSheet("\n"
-        #                               "/*vertical SCrollbar*/\n"
-        #                               "QScrollBar:vertical{\n"
-        #                               "border:none;\n"
-        #                               "background-color: rgb(161, 164, 224);\n"
-        #                               "width:14px;\n"
-        #                               "/*margin: 15px 0 15px 0;*/\n"
-        #                               "border-radius:0px\n"
-        #                               "}\n"
-        #                               "/* Handle Bar Vertiacal */\n"
-        #                               "\n"
-        #                               "QScrollBar::handle:vertical{\n"
-        #                               "background-color:  rgb(161, 164, 224);\n"
-        #                               "min-height: 30px;\n"
-        #                               "border-radius: 7px;\n"
-        #                               "}\n"
-        #                               "\n"
-        #                               "QScrollBar::handle:vertical:hover{\n"
-        #                               "background-color: rgb(255,0,127);\n"
-        #                               "}\n"
-        #                               "\n"
-        #                               "QScrollBar::handle:pressed{\n"
-        #                               "background-color: rgb(185,0,92);\n"
-        #                               "}")
         self.scrollArea_Qr.setWidgetResizable(True)
         self.scrollArea_Qr.setObjectName("scrollArea_Qr")
-
-
-        # self.frameQrcode = QtWidgets.QFrame(self.frame)
-        # self.frameQrcode.setMaximumSize(QtCore.QSize(500, 16777215))
-        # self.frameQrcode.setStyleSheet("")
-        # self.frameQrcode.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        # self.frameQrcode.setFrameShadow(QtWidgets.QFrame.Raised)
-        # self.frameQrcode.setObjectName("frameQrcode")
-        # self.frameQrcode.setMaximumSize(QtCore.QSize(500, 100))
-        # self.frameQrcode.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.frameQrcode.hide()
-        # self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.frame_12)
-
-        # self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_8)
-        # self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        # self.verticalLayout_3.setSpacing(0)
-        # self.verticalLayout_3.setObjectName("verticalLayout_3")
-
 
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.frameQrcode)
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
@@ -709,21 +668,8 @@ class Main(QMainWindow):
         self.verticalLayout_9.setSpacing(0)
         self.verticalLayout_9.setObjectName("verticalLayout_8")
 
-        # self.scrollArea_Qr.setWidget(self.verticalLayout_8)
-
-        # self.frame_13 = QtWidgets.QFrame(self.frameRight)
-        # self.frame_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        # self.frame_13.setFrameShadow(QtWidgets.QFrame.Raised)
-        # self.frame_13.setObjectName("frame_11")
-
         self.qrLabel = QtWidgets.QLabel('This is qrLabel' ,self.frameQrcode)
         self.qrLabel.setAlignment(Qt.AlignCenter)
-        # self.qrLabel.setContentsMargins(0, 0, 0, 0)
-
-        # self.qrLabel.setMaximumSize(QtCore.QSize(500, 16777215))
-        
-        # self.qrLabel.setMinimumSize(QtCore.QSize(500, 5000))
-        
         self.qrTitle = QtWidgets.QLineEdit(self.frameQrcode)
         self.qrTitle.setGeometry(QtCore.QRect(40, 0, 170, 50))
         self.qrTitle.setStyleSheet("border-radius: 25px;\n"
@@ -893,6 +839,11 @@ class Main(QMainWindow):
         self.priceOff.setText(""),#
         self.active.setChecked(False)
         self.vige.setChecked(False)
+
+        # pixmap = QPixmap(imagePath)
+        # pixmap = pixmap.scaled(500, 500, QtCore.Qt.KeepAspectRatio)
+        # self.resize(pixmap.width(), pixmap.height())
+        self.pic.setPixmap(QtGui.QPixmap())
 
     def sendProduct(self):
 
