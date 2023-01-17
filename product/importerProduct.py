@@ -2,7 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 
 import icons
-from widgets_product import MyLineEdit, FormWidget, SideGrip, Frame, Image
+from widgets_product import MyLineEdit, FormWidget, SideGrip, Frame, Image,TableModel\
+                            ,CenterDelegate,AlignDelegate
 import os
 from PyQt5.QtGui import QPixmap, QImage, QPainter
 from PyQt5.QtWidgets import (
@@ -10,6 +11,9 @@ from PyQt5.QtWidgets import (
     QMainWindow,
     QFileDialog,
     QWidget,
+    QTableWidget,
+    QHeaderView,
+    QTableView,
 )
 from PyQt5.QtCore import (QCoreApplication, QObject, QRunnable, QThread,
                           QThreadPool, pyqtSignal, Qt)

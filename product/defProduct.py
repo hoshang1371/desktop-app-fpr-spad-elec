@@ -1,18 +1,4 @@
 from importerProduct import *
-# from product.importerProduct import *
-# from internalNetwork import NetworkServer
-# # from product import *
-# from internalNetwork import NetworkServer
-
-# def desc(self ,child):
-#     network = NetworkServer(self,child)
-#     threading.Thread(target=network.server).start()
-#     print("endof thread")
-#     print(child.objectName())
-#     if child.objectName() == 'description':
-#         os.system('python product\descript.py توضیحات')
-#     elif child.objectName() == 'smallDescription':
-#         os.system('python product\descript.py توضیحات کوتاه ')
 
 def retranslateUi(self, MainWindow):
     _translate = QtCore.QCoreApplication.translate
@@ -223,11 +209,21 @@ def qrCodeclicked(self):
     self.frameRight.hide()
     self.frame_8.hide()
     self.frameQrcode.show()
+    self.productList.hide()
 
 def addProduct(self):
     self.frameRight.show()
     self.frame_8.show()
-    self.frameQrcode.hide()       
+    self.frameQrcode.hide()   
+    self.productList.hide()
+
+
+def ProductList(self):
+    self.frameRight.hide()
+    self.frame_8.hide()
+    self.frameQrcode.hide()   
+    self.productList.show()
+   
 
 
 

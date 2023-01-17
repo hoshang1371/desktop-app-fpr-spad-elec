@@ -1,7 +1,12 @@
 from importerProduct import *
 import defProduct
 from internalNetwork import *
-from qrview import qrViewCreator ,picAdder ,productTheme ,nav ,frameLessFrame
+from qrview import qrViewCreator  
+from frameLess import frameLessFrame
+from nav import nav
+from theme import productTheme
+from picturetheme import picAdder
+from productListview import productListView
 
 class Main(QMainWindow):
     _gripSize = 8
@@ -17,6 +22,7 @@ class Main(QMainWindow):
     qrCodeclicked = defProduct.qrCodeclicked
     addProduct = defProduct.addProduct
     retranslateUi =defProduct.retranslateUi
+    ProductList =defProduct.ProductList
     # desc = defProduct.desc
     def __init__(self):
         super().__init__()
@@ -27,7 +33,7 @@ class Main(QMainWindow):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(980, 654)
+        MainWindow.resize(980, 700)
         MainWindow.setMinimumSize(QtCore.QSize(897, 0))
         MainWindow.setStyleSheet("background-color: rgb(255, 85, 0);")
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
@@ -85,9 +91,20 @@ class Main(QMainWindow):
         self.frameQrcode = qrViewCreator(self)
 #*=========================================================================
         self.frameRight = picAdder(self)
+#*=========================================================================
+        self.productList = productListView(self)
+        # self.productList = QtWidgets.QFrame(self.frame)
+        # self.productList.setLayoutDirection(QtCore.Qt.LeftToRight)
+        # self.productList.setStyleSheet("border: 1px solid black;")
+        # self.productList.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        # self.productList.setFrameShadow(QtWidgets.QFrame.Raised)
+        # self.productList.setObjectName("productList")
+        # self.productList.hide()
+        # self.frameQrcode.hide()
 #*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.horizontalLayout_4.addWidget(self.frameRight)
         self.horizontalLayout_4.addWidget(self.frameQrcode)
+        self.horizontalLayout_4.addWidget(self.productList)
 #*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.horizontalLayout_5.addLayout(self.horizontalLayout_4)
         self.verticalLayout.addWidget(self.frame)
