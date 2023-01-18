@@ -3,7 +3,7 @@ import sys
 
 import icons
 from widgets_product import MyLineEdit, FormWidget, SideGrip, Frame, Image,TableModel\
-                            ,CenterDelegate,AlignDelegate
+                            ,CenterDelegate,AlignDelegate,IconDelegate
 import os
 from PyQt5.QtGui import QPixmap, QImage, QPainter
 from PyQt5.QtWidgets import (

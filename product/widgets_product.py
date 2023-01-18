@@ -159,17 +159,33 @@ class TableModel(QtCore.QAbstractTableModel):
         self._data = data
 
     def data(self, index, role):
-        if role == Qt.DisplayRole:
+        if role == Qt.DecorationRole:
             value = self._data.iloc[index.row(), index.column()]
             if isinstance(value, bool):
                 if value:
-                    print(f"value is : {value}")
-                    return "هست"
-                    # return QtGui.QIcon('G:/python/logIn_spad/test/tick.png')
+                    return QtGui.QIcon('G:/python/logIn_spad/product/tick.png')
+                return QtGui.QIcon('G:/python/logIn_spad/product/cross.png')
                     # return QTableWidgetItem(QtGui.QIcon("G:/python/logIn_spad/test/tick.png"),"SomeText")
 
                     # return QPixmap('tick.png')
-            return str(value)
+        elif role == Qt.DisplayRole:
+            value = self._data.iloc[index.row(), index.column()]
+            if str(value) == "True" or str(value) == "False":
+                return str("")
+            else:
+                return str(value)
+#!================================================================
+        # if role == Qt.DecorationRole:
+        #     value = self._data.iloc[index.row(), index.column()]
+        #     if isinstance(value, bool):
+        #         if value:
+        #             return QtGui.QIcon('G:/python/logIn_spad/product/tick.png')
+
+        #         return QtGui.QIcon('cross.png')
+        #     return str(value)
+#!================================================================
+
+        
 
 
     # def data(self, index, role):
@@ -208,7 +224,14 @@ class AlignDelegate(QtWidgets.QStyledItemDelegate):
     def initStyleOption(self, option, index):
         super(AlignDelegate, self).initStyleOption(option, index)
         option.displayAlignment = QtCore.Qt.AlignCenter
+        option.icon = QtCore.Qt.AlignCenter
 
 
-
+class IconDelegate(QtWidgets.QStyledItemDelegate):
+    def initStyleOption(self, option, index):
+        super(IconDelegate, self).initStyleOption(option, index)
+        if option.features & QtWidgets.QStyleOptionViewItem.HasDecoration:
+            s = option.decorationSize
+            s.setWidth(option.rect.width())
+            option.decorationSize = s
 

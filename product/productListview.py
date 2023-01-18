@@ -68,7 +68,7 @@ def productListView(self):
     data_ccontent.append([3, 5, "me", 1])
     data = pd.DataFrame(data_ccontent, columns=['ویژه', 'فعال', 'قیمت تخفیف', 'قیمت', 'تعداد', 'مکان کالا', 'نام', 'کد'])
     data.loc[len(data)]= ["sex", 9, 2, 1, 1, 1, 1, False]
-    data.loc[len(data)+1]= [False, 9, 2, 1, 1, 1, 1, QtGui.QIcon("G:/python/logIn_spad/test/tick.png")]
+    data.loc[len(data)+1]= [False, 9, 2, 1, 1, 1, 1, QtGui.QIcon("G:/python/logIn_spad/product/tick.png")]
     self.model = TableModel(data)
     
     self.table.setModel(self.model)
@@ -92,7 +92,12 @@ def productListView(self):
 
 
     delegate = AlignDelegate(self.table)
+
     self.table.setItemDelegate(delegate)
+
+    delegate1 = IconDelegate(self.table)  # <--- 
+    self.table.setItemDelegate(delegate1)
+
     self.table.setFont(font)
     self.table.horizontalHeader().setFont(font)
     self.table.setSelectionBehavior(QTableView.SelectRows)
