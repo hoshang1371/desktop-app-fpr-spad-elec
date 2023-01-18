@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import (
                             QWidget,
                             QFrame,
                             QStyledItemDelegate,
+                            # QTableWidgetItem
                             )
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtCore import QPoint
@@ -160,7 +161,26 @@ class TableModel(QtCore.QAbstractTableModel):
     def data(self, index, role):
         if role == Qt.DisplayRole:
             value = self._data.iloc[index.row(), index.column()]
+            if isinstance(value, bool):
+                if value:
+                    print(f"value is : {value}")
+                    return "هست"
+                    # return QtGui.QIcon('G:/python/logIn_spad/test/tick.png')
+                    # return QTableWidgetItem(QtGui.QIcon("G:/python/logIn_spad/test/tick.png"),"SomeText")
+
+                    # return QPixmap('tick.png')
             return str(value)
+
+
+    # def data(self, index, role):
+    #     if role == Qt.DecorationRole:
+    #         # value = self._data[index.row()][index.column()]
+    #         value = self._data.iloc[index.row(), index.column()]
+    #         # if isinstance(value, bool):
+    #         #     if value:
+    #         #         return QtGui.QIcon('tick.png')
+    #         #     return QtGui.QIcon('cross.png')
+    #         return str(value)
 
     def rowCount(self, index):
         return self._data.shape[0]

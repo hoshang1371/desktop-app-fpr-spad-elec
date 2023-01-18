@@ -93,14 +93,6 @@ class Main(QMainWindow):
         self.frameRight = picAdder(self)
 #*=========================================================================
         self.productList = productListView(self)
-        # self.productList = QtWidgets.QFrame(self.frame)
-        # self.productList.setLayoutDirection(QtCore.Qt.LeftToRight)
-        # self.productList.setStyleSheet("border: 1px solid black;")
-        # self.productList.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        # self.productList.setFrameShadow(QtWidgets.QFrame.Raised)
-        # self.productList.setObjectName("productList")
-        # self.productList.hide()
-        # self.frameQrcode.hide()
 #*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.horizontalLayout_4.addWidget(self.frameRight)
         self.horizontalLayout_4.addWidget(self.frameQrcode)

@@ -26,7 +26,7 @@ def qrViewCreator(self):
         self.qrLabel.setAlignment(Qt.AlignCenter)
         self.qrTitle = QtWidgets.QLineEdit(self.frameQrcode)
         self.qrTitle.setGeometry(QtCore.QRect(40, 0, 170, 50))
-        self.qrTitle.setStyleSheet("border-radius: 25px;\n"                                  "border: 1px solid black;")
+        self.qrTitle.setStyleSheet("border-radius: 25px;\n" "border: 1px solid black;")
         self.qrTitle.setObjectName("QrTitle")
         self.qrTitle.setAlignment(Qt.AlignCenter)
         self.qrTitle.returnPressed.connect(self.handleTextEntered)

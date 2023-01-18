@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import (
     QTableWidget,
     QHeaderView,
     QTableView,
+    QTableWidgetItem,
 )
 from PyQt5.QtCore import (QCoreApplication, QObject, QRunnable, QThread,
                           QThreadPool, pyqtSignal, Qt)

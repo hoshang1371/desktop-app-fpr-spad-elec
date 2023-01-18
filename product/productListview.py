@@ -10,6 +10,9 @@ from numpy.random import randint
 
 
 def productListView(self):
+    font = QtGui.QFont()
+    font.setPointSize(14)
+
     self.productList = QtWidgets.QFrame(self.frame)
     self.productList.setLayoutDirection(QtCore.Qt.LeftToRight)
     self.productList.setStyleSheet("border: 1px solid black;")
@@ -32,10 +35,24 @@ def productListView(self):
     self.verticalLayout_11.setSpacing(0)
     self.verticalLayout_11.setObjectName("verticalLayout_11")
 
+
+    self.searchTitle = QtWidgets.QLineEdit(self.frameQrcode)
+    self.searchTitle.setGeometry(QtCore.QRect(40, 0, 170, 50))
+    self.searchTitle.setPlaceholderText("search")
+    self.searchTitle.setFixedHeight(60)
+    self.searchTitle.setContentsMargins(5, 5, 5, 5)
+    self.searchTitle.setFont(font)
+    self.searchTitle.setStyleSheet("border-radius: 25px;\n"                                  "border: 1px solid black;")
+    self.searchTitle.setObjectName("searchTitle")
+    self.searchTitle.setAlignment(Qt.AlignCenter)
+    font.setPointSize(12)
+    self.verticalLayout_11.addWidget(self.searchTitle)
+
+    # self.table = QtWidgets.QTableWidget()
     self.table = QtWidgets.QTableView()
 
     data_ccontent = [
-                    ["sex", 9, 2, 1, 1, 1, 1, 1],
+                    ["sex", 9, 2, 1, 1, 1, 1, True],
                     [1, "for", -1, 1],
                     [3, 5, "me", 1], 
                     ["sex", 9, 2, 1, 1, 1, 1, 1],
@@ -48,14 +65,22 @@ def productListView(self):
                     [1, "for", -1, 1],
                     [3, 5, "me", 1], 
                     ]
-
     data_ccontent.append([3, 5, "me", 1])
     data = pd.DataFrame(data_ccontent, columns=['ویژه', 'فعال', 'قیمت تخفیف', 'قیمت', 'تعداد', 'مکان کالا', 'نام', 'کد'])
-    data.loc[len(data)]= ["sex", 9, 2, 1, 1, 1, 1, 1]
+    data.loc[len(data)]= ["sex", 9, 2, 1, 1, 1, 1, False]
+    data.loc[len(data)+1]= [False, 9, 2, 1, 1, 1, 1, QtGui.QIcon("G:/python/logIn_spad/test/tick.png")]
     self.model = TableModel(data)
-    data.loc[len(data)+1]= ["sex", 9, 2, 1, 1, 1, 1, 100]
+    
     self.table.setModel(self.model)
 
+    # self.table.
+#*=====================================================
+    # self.table.setRowCount(3)
+    # self.table.setColumnCount(3)
+    # self.table.setHorizontalHeaderLabels(['Product', 'Description', 'Likes/UnLikes'])
+    # self.setCentralWidget(self.tableWidget)
+
+#*=====================================================
     self.table.verticalHeader().setVisible(False)
 
 
@@ -64,14 +89,17 @@ def productListView(self):
     self.table.verticalHeader().setDefaultSectionSize(50)
     self.table.horizontalHeader().setFixedHeight(60)
 
-    font = QtGui.QFont()
-    font.setPointSize(12)
+
 
     delegate = AlignDelegate(self.table)
     self.table.setItemDelegate(delegate)
     self.table.setFont(font)
     self.table.horizontalHeader().setFont(font)
-    self.table.setSelectionBehavior(QTableView.SelectRows);
+    self.table.setSelectionBehavior(QTableView.SelectRows)
+
+
+
+
     self.table.doubleClicked.connect(lambda: print("vivio"))
     # self.table.horizontalHeader().setDefaultSectionSize(50)
     # self.tableWidget = QTableWidget(self.productList)
