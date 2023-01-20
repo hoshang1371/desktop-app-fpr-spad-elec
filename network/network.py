@@ -9,20 +9,30 @@ parent = os.path.dirname(current)
 sys.path.append(parent)
 
 from extention.base64 import image_to_data_url
+from extention.storeData import storeData ,loadData
+from cryptography.fernet import Fernet
+
+# from product.importerProduct import keyToken
+keyToken = b'chz4UshV2y2R3oCf_nWpX_PsqArGPy0WRrqE72krxbI='
 
 uriImportant = "http://192.168.1.52:8000";
-Tok = {}
 
-# statusOfLogin=""
+Tok = {}
+head = {}
 class Network:
     url_email_login = f"{uriImportant}/api/api_token_auth/";
     url_add_product = f"{uriImportant}/api/addProduct/";
+    url_list_product = f"{uriImportant}/api/";
 
-    myToken = "Token 0703e9e4e6a24cfce15b26a7fa0544de3c8101ea"   
-    head = {'Authorization': f"{myToken}" }
-
-
+    # global head  
+    # myToken = "Token 0703e9e4e6a24cfce15b26a7fa0544de3c8101ea" 
+    # head = {}
+    # def __init__(self):
+    #     self.myToken = "Token 0703e9e4e6a24cfce15b26a7fa0544de3c8101ea" 
+    #     self.head ={}
+    #     self.head = {'Authorization': f"{self.myToken}" }
     def post_login(email,password):
+        global j
         print(email)
         print(password)
         r = requests.post(Network.url_email_login, json={
@@ -37,34 +47,38 @@ class Network:
         # print(r.text)
         if r.status_code == 200:
             Tok = r.json()
-            print("ok")
+            # global head
+            head = {'Authorization': f"Token {Tok['token']}" }
+            # self.head = {'Authorization': f"Token {Tok['token']}" }
+            print("Network.head")
+            print(head)
             print(Tok['token'])
+            # f = Fernet(keyToken)
+            tokenEnc = Fernet(keyToken).encrypt(Tok['token'].encode('utf-8'))
+            storeData(tokenEnc,keyToken)
         return(r.status_code)
-
 
     def post_product_data(title,code,place,number,
                           brand,description,smallDescription,price,
                           priceOff,picDir,active,vige):
-    # def post_product_data(self):
-        # print(title)
-        # print(code)
-        # print(place)
-        # print(description)
-        # print(brand)
-        # o = int(price)
-        # print(o)
-        # print(picDir)
         picName = picDir.split('.')[-2]
         picName = picName.split('/')[-1]
         print('+++++++++++++++++++++++++++++++++')
-        print(picName)
+        # global head
+        # global j
+        db = loadData()
+        print(db)
+        token = Fernet(db['key']).decrypt(db['token'])
+        print(token)
+        head = {'Authorization': f"Token {token.decode('utf-8')}" }
         img = image_to_data_url(picDir)
+
         # print(dir)
         print('+++++++++++++++++++++++++++++++++')
         if priceOff == "":
            r = requests.post(
                 Network.url_add_product, 
-                headers =Network.head,
+                headers =head,
                 json={
                     "title": title,
                     "code": code,
@@ -85,7 +99,7 @@ class Network:
         else:
             r = requests.post(
                 Network.url_add_product, 
-                headers =Network.head,
+                headers =head,
                 json={
                     "title": title,
                     "code": code,
@@ -106,8 +120,6 @@ class Network:
             )
 
         print(r.status_code) 
-        
-        
         # print(r.headers) 
         # print(r.content) 
         print(r.text) 

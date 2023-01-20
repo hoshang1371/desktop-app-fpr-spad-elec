@@ -29,7 +29,13 @@ sys.path.append(parent)
 from network.network import Network
 from extention.massegeBox import addProductSuccesMessege,notEnteredMessege,\
                                  isEmpty,notEnterednumber
+
+# from extention import storeData
+
 # from internalNetwork import *
 
 stop_threads =False
 dataGetFromscript =""
+
+# keyToken = b'chz4UshV2y2R3oCf_nWpX_PsqArGPy0WRrqE72krxbI='
+

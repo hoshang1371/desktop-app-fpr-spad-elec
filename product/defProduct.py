@@ -21,6 +21,8 @@ def retranslateUi(self, MainWindow):
 def closButtonClicked_exit(self):
     global stop_threads
     stop_threads =True
+    if os.path.exists("examplePickle"):
+        os.remove("examplePickle")
     print("exit")
     sys.exit()
 
