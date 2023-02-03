@@ -50,30 +50,16 @@ def productListView(self):
 
     # self.table = QtWidgets.QTableWidget()
     self.table = QtWidgets.QTableView()
-
     data_ccontent = [
-                    ["sex", 9, 2, 1, 1, 1, 1, True],
-                    [1, "for", -1, 1],
-                    [3, 5, "me", 1], 
-                    ["sex", 9, 2, 1, 1, 1, 1, 1],
-                    [1, "for", -1, 1],
-                    [3, 5, "me", 1], 
-                    ["sex", 9, 2, 1, 1, 1, 1, 1],
-                    [1, "for", -1, 1],
-                    [3, 5, "me", 1], 
-                    ["sex", 9, 2, 1, 1, 1, 1, 1],
-                    [1, "for", -1, 1],
-                    [3, 5, "me", 1], 
                     ]
-    data_ccontent.append([3, 5, "me", 1])
+    global data
     data = pd.DataFrame(data_ccontent, columns=['ویژه', 'فعال', 'قیمت تخفیف', 'قیمت', 'تعداد', 'مکان کالا', 'نام', 'کد'])
-    data.loc[len(data)]= ["sex", 9, 2, 1, 1, 1, 1, False]
-    data.loc[len(data)+1]= [False, 9, 2, 1, 1, 1, 1, QtGui.QIcon("G:/python/logIn_spad/product/tick.png")]
+    # data.loc[len(data)]= ["sex", 9, 2, 1, 1, 1, 1, 1]
+    # data.loc[len(data)+1]= [False, 9, 2, 1, 1, 1, 1, 2]
     self.model = TableModel(data)
     
     self.table.setModel(self.model)
 
-    # self.table.
 #*=====================================================
     # self.table.setRowCount(3)
     # self.table.setColumnCount(3)
@@ -106,6 +92,7 @@ def productListView(self):
 
 
     self.table.doubleClicked.connect(lambda: print("vivio"))
+
     # self.table.horizontalHeader().setDefaultSectionSize(50)
     # self.tableWidget = QTableWidget(self.productList)
     # self.tableWidget.verticalHeader().setVisible(False)
@@ -113,6 +100,15 @@ def productListView(self):
     # self.tableWidget.setRowCount(5)
     # # set column count
     # self.tableWidget.setColumnCount(8)
-
+    #! how to add row after add widget
+    # data.loc[len(data)+1]= [False, 9, 2, True, 1, "1010", 1, 7]
+    # data_ccontent.append([3, 5, "me1", 1])
     self.verticalLayout_11.addWidget(self.table)
+    # data.loc[len(data)]= ["sex", 9, 2, 1, 1, 1, 1, 1]
+    # self.layoutChanged.emit()
+    # self.model.setDataRow(value= [False, True, 2, True, 1, "koskesh", 1, 8])
+    
+
+   
+
     return self.productList

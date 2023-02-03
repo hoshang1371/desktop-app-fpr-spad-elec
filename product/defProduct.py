@@ -1,4 +1,5 @@
 from importerProduct import *
+import productListview
 
 def retranslateUi(self, MainWindow):
     _translate = QtCore.QCoreApplication.translate
@@ -219,13 +220,55 @@ def addProduct(self):
     self.frameQrcode.hide()   
     self.productList.hide()
 
+import json 
 
 def ProductList(self):
     self.frameRight.hide()
     self.frame_8.hide()
     self.frameQrcode.hide()   
     self.productList.show()
-   
+    r= Network.getProductList()
+    products = json.loads(r) 
+    print(products)
+    print("r[0]=",products[0])
+    print("ls[0]['vige']=",products[0]['vige'])
+    print("ls[0]['active']=",products[0]['active'])
+    print("len ls=",len(products))
+    print("type r0=",type(products[0]))
+
+
+    for product in products:
+        self.model.setDataRow(value= [
+        product['vige'],
+        product['active'],
+        product['priceOff'],
+        product['price'],
+        product['number'],
+        product['place'],
+        product['title'],
+        product['code'],
+        ]
+        )
+
+    # self.model.setDataRow(value= [
+    # products[0]['vige'],
+    # products[0]['active'],
+    # products[0]['priceOff'],
+    # products[0]['price'],
+    # products[0]['number'],
+    # products[0]['place'],
+    # products[0]['title'],
+    # products[0]['code'],
+    # ]
+    # )
+    # productListview.data.loc[len(productListview.data)+1]= [False, 9, 2, True, 1, False, "gfgf", 6]
+
+    # print("productListview.data")
+    # print(productListview.data)
+    # data.loc[len(data)+1]= [False, 9, 2, 1, 1, 1, 1, QtGui.QIcon("G:/python/logIn_spad/product/tick.png")]
+
+    # print(r)
+
 
 
 

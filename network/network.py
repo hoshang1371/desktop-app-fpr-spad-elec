@@ -32,7 +32,7 @@ class Network:
     #     self.head ={}
     #     self.head = {'Authorization': f"{self.myToken}" }
     def post_login(email,password):
-        global j
+        # global j
         print(email)
         print(password)
         r = requests.post(Network.url_email_login, json={
@@ -53,10 +53,25 @@ class Network:
             print("Network.head")
             print(head)
             print(Tok['token'])
-            # f = Fernet(keyToken)
-            tokenEnc = Fernet(keyToken).encrypt(Tok['token'].encode('utf-8'))
-            storeData(tokenEnc,keyToken)
+            
+            # tokenEnc = Fernet(keyToken).encrypt(Tok['token'].encode('utf-8'))
+            # storeData(tokenEnc,keyToken)
+            Network.saveLocalStorageToken(Tok['token'])
+
         return(r.status_code)
+
+    def saveLocalStorageToken(TokenSave):
+            tokenEnc = Fernet(keyToken).encrypt(TokenSave.encode('utf-8'))
+            storeData(tokenEnc,keyToken)
+
+
+    def LoadLocalStoregToken():
+        db = loadData()
+        print(db)
+        token = Fernet(db['key']).decrypt(db['token'])
+        print(token)
+        head = {'Authorization': f"Token {token.decode('utf-8')}" }
+        return head
 
     def post_product_data(title,code,place,number,
                           brand,description,smallDescription,price,
@@ -64,17 +79,17 @@ class Network:
         picName = picDir.split('.')[-2]
         picName = picName.split('/')[-1]
         print('+++++++++++++++++++++++++++++++++')
-        # global head
-        # global j
-        db = loadData()
-        print(db)
-        token = Fernet(db['key']).decrypt(db['token'])
-        print(token)
-        head = {'Authorization': f"Token {token.decode('utf-8')}" }
+        # db = loadData()
+        # print(db)
+        # token = Fernet(db['key']).decrypt(db['token'])
+        # print(token)
+        # head = {'Authorization': f"Token {token.decode('utf-8')}" }
+        head = Network.LoadLocalStoregToken()
+
+        print('+++++++++++++++++++++++++++++++++')
+
         img = image_to_data_url(picDir)
 
-        # print(dir)
-        print('+++++++++++++++++++++++++++++++++')
         if priceOff == "":
            r = requests.post(
                 Network.url_add_product, 
@@ -127,7 +142,18 @@ class Network:
         if r.status_code == 200:
             addProductSuccesMessege()
 
+    def getProductList():
 
+        head = Network.LoadLocalStoregToken()
+        
+        r = requests.get(
+            Network.url_list_product,
+            headers =head,
+            )
+        if r.status_code == 200:
+            return r.text
+        else:
+            return "Error"
 
 	
 # if __name__ == '__main__': 

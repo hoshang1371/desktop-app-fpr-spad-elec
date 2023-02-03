@@ -11,6 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPixmap, QImage, QPainter
 
 import qrcode
+import numpy as np
 
 class MyLineEdit(QLineEdit):
 
@@ -151,7 +152,6 @@ class Image(qrcode.image.base.BaseImage):
             self.box_size, self.box_size,
             QtCore.Qt.black)
  
- 
 class TableModel(QtCore.QAbstractTableModel):
 
     def __init__(self, data):
@@ -159,9 +159,9 @@ class TableModel(QtCore.QAbstractTableModel):
         self._data = data
 
     def data(self, index, role):
+        value = self._data.iloc[index.row(), index.column()]
         if role == Qt.DecorationRole:
-            value = self._data.iloc[index.row(), index.column()]
-            if isinstance(value, bool):
+            if (isinstance(value, bool) or isinstance(value, np.bool_)):
                 if value:
                     return QtGui.QIcon('G:/python/logIn_spad/product/tick.png')
                 return QtGui.QIcon('G:/python/logIn_spad/product/cross.png')
@@ -169,25 +169,15 @@ class TableModel(QtCore.QAbstractTableModel):
 
                     # return QPixmap('tick.png')
         elif role == Qt.DisplayRole:
-            value = self._data.iloc[index.row(), index.column()]
-            if str(value) == "True" or str(value) == "False":
+            # value = self._data.iloc[index.row(), index.column()]
+            if str(value) == "True" or str(value) == "False" or str(value) == "None":
                 return str("")
             else:
                 return str(value)
-#!================================================================
-        # if role == Qt.DecorationRole:
-        #     value = self._data.iloc[index.row(), index.column()]
-        #     if isinstance(value, bool):
-        #         if value:
-        #             return QtGui.QIcon('G:/python/logIn_spad/product/tick.png')
 
-        #         return QtGui.QIcon('cross.png')
-        #     return str(value)
-#!================================================================
-
+        elif role == QtCore.Qt.TextAlignmentRole:
+            return QtCore.Qt.AlignCenter
         
-
-
     # def data(self, index, role):
     #     if role == Qt.DecorationRole:
     #         # value = self._data[index.row()][index.column()]
@@ -198,11 +188,31 @@ class TableModel(QtCore.QAbstractTableModel):
     #         #     return QtGui.QIcon('cross.png')
     #         return str(value)
 
+    # def setData(self, value, role=QtCore.Qt.DisplayRole):
+    #         self._data.loc[len(self._data)+1]= [False, 9, 2, True, 1, "koskesh", 1, 8]
+    #         self.layoutChanged.emit()
+
+    def setDataRow(self, value):
+            self._data.loc[len(self._data)+1]= value
+            self.layoutChanged.emit()
+            
     def rowCount(self, index):
         return self._data.shape[0]
 
     def columnCount(self, index):
         return self._data.shape[1]
+
+    # def rowCount(self, index=QtCore.QModelIndex()):
+    #     try:
+    #         return len(self._data)
+    #     except:
+    #         return 0
+
+    # def columnCount(self, index=QtCore.QModelIndex()):
+    #     try:
+    #         return len(self._data[0])
+    #     except:
+    #         return 0
 
     def headerData(self, section, orientation, role):
         # section is the index of the column/row.

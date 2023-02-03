@@ -36,6 +36,7 @@ from extention.massegeBox import addProductSuccesMessege,notEnteredMessege,\
 
 stop_threads =False
 dataGetFromscript =""
+dataGetProductList =""
 
 # keyToken = b'chz4UshV2y2R3oCf_nWpX_PsqArGPy0WRrqE72krxbI='
 
