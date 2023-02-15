@@ -1,5 +1,5 @@
 from importerProduct import *
-import productListview
+# import productListview
 
 def retranslateUi(self, MainWindow):
     _translate = QtCore.QCoreApplication.translate
@@ -229,12 +229,12 @@ def ProductList(self):
     self.productList.show()
     r= Network.getProductList()
     products = json.loads(r) 
-    print(products)
-    print("r[0]=",products[0])
-    print("ls[0]['vige']=",products[0]['vige'])
-    print("ls[0]['active']=",products[0]['active'])
-    print("len ls=",len(products))
-    print("type r0=",type(products[0]))
+    # print(products)
+    # print("r[0]=",products[0])
+    # print("ls[0]['vige']=",products[0]['vige'])
+    # print("ls[0]['active']=",products[0]['active'])
+    # print("len ls=",len(products))
+    # print("type r0=",type(products[0]))
 
 
     for product in products:
@@ -249,6 +249,31 @@ def ProductList(self):
         product['code'],
         ]
         )
+
+def deletAllProductList(self):
+    self.model.deletAllDataRow()
+
+def searchProduct(self,textSearch):
+    print("search Product=",textSearch)
+    result =Network.searchProduct(textSearch)
+    print(result)
+    products = json.loads(result) 
+    
+    self.model.deletAllDataRow()
+    for product in products:
+        self.model.setDataRow(value= [
+        product['vige'],
+        product['active'],
+        product['priceOff'],
+        product['price'],
+        product['number'],
+        product['place'],
+        product['title'],
+        product['code'],
+        ]
+        )
+
+    # df.drop(df.index[:], inplace=True)
 
     # self.model.setDataRow(value= [
     # products[0]['vige'],

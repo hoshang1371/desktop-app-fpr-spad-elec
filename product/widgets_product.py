@@ -12,6 +12,7 @@ from PyQt5.QtGui import QPixmap, QImage, QPainter
 
 import qrcode
 import numpy as np
+import convert_numbers
 
 class MyLineEdit(QLineEdit):
 
@@ -172,6 +173,9 @@ class TableModel(QtCore.QAbstractTableModel):
             # value = self._data.iloc[index.row(), index.column()]
             if str(value) == "True" or str(value) == "False" or str(value) == "None":
                 return str("")
+            elif str(value).isnumeric():
+                # print(convert_numbers.english_to_persian(str(value)))
+                return convert_numbers.english_to_persian(str(value))
             else:
                 return str(value)
 
@@ -195,6 +199,11 @@ class TableModel(QtCore.QAbstractTableModel):
     def setDataRow(self, value):
             self._data.loc[len(self._data)+1]= value
             self.layoutChanged.emit()
+
+    def deletAllDataRow(self):
+        print(self._data)
+        self._data.drop(self._data.index[:], inplace=True)
+        self.layoutChanged.emit()
             
     def rowCount(self, index):
         return self._data.shape[0]

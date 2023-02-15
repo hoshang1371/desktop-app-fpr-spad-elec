@@ -38,5 +38,5 @@ stop_threads =False
 dataGetFromscript =""
 dataGetProductList =""
 
-# keyToken = b'chz4UshV2y2R3oCf_nWpX_PsqArGPy0WRrqE72krxbI='
+# keyToken = b'chz4UshV2y2R3oCf_nWpX_PsqArGPy0WRrqE72krxbI='  deletAllProductList
 

@@ -3,7 +3,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 import pandas as pd
 
 from numpy.random import randint
-
+from defProduct import deletAllProductList ,searchProduct
 # from product.widgets_product import AlignDelegate
 
 # from product.widgets_product import CenterDelegate
@@ -36,15 +36,21 @@ def productListView(self):
     self.verticalLayout_11.setObjectName("verticalLayout_11")
 
 
-    self.searchTitle = QtWidgets.QLineEdit(self.frameQrcode)
+    # self.searchTitle = QtWidgets.QLineEdit(self.frameQrcode)
+    self.searchTitle = MyLineEdit(self.frameQrcode)
     self.searchTitle.setGeometry(QtCore.QRect(40, 0, 170, 50))
-    self.searchTitle.setPlaceholderText("search")
+    self.searchTitle.setPlaceholderText("Search")
     self.searchTitle.setFixedHeight(60)
     self.searchTitle.setContentsMargins(5, 5, 5, 5)
     self.searchTitle.setFont(font)
     self.searchTitle.setStyleSheet("border-radius: 25px;\n"                                  "border: 1px solid black;")
     self.searchTitle.setObjectName("searchTitle")
     self.searchTitle.setAlignment(Qt.AlignCenter)
+#!==============================================================
+    # self.searchTitle.clicked.connect(lambda: deletAllProductList(self))
+    self.searchTitle.returnPressed.connect(lambda: searchProduct(self,self.searchTitle.text()))
+#!==============================================================
+
     font.setPointSize(12)
     self.verticalLayout_11.addWidget(self.searchTitle)
 
